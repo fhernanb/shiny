@@ -145,54 +145,13 @@ ul.task-list li input[type="checkbox"] {
 library(shiny)
 library(bslib)
 
-# Define UI for app that draws a histogram ----
-ui &lt;- page_sidebar(
+library(ggplot2)
+library(viridis)
+library(dplyr)
 
-  # App title ----
-  title = "Hello Shiny!",
+source("https://raw.githubusercontent.com/aml4td/website/main/R/shiny-setup.R")
 
-  # Sidebar panel for inputs ----
-  sidebar = sidebar(
-
-    # Input: Slider for the number of bins ----
-    sliderInput(
-      inputId = "bins",
-      label = "Number of bins:",
-      min = 1,
-      max = 50,
-      value = 30
-    )
-  ),
-
-  # Output: Histogram ----
-  plotOutput(outputId = "distPlot")
-)
-
-# Define server logic required to draw a histogram ----
-server &lt;- function(input, output) {
-
-  # Histogram of the Old Faithful Geyser Data ----
-  # with requested number of bins
-  # This expression that generates a histogram is wrapped in a call
-  # to renderPlot to indicate that:
-  #
-  # 1. It is "reactive" and therefore should be automatically
-  #    re-executed when inputs (input$bins) change
-  # 2. Its output type is a plot
-  output$distPlot &lt;- renderPlot({
-    x &lt;- faithful$waiting
-    bins &lt;- seq(min(x), max(x), length.out = input$bins + 1)
-
-    hist(
-      x,
-      breaks = bins,
-      col = "#75AADB",
-      border = "white",
-      xlab = "Waiting time to next eruption (in mins)",
-      main = "Histogram of waiting times"
-    )
-  })
-}
+source("https://raw.githubusercontent.com/aml4td/website/main/R/shiny-umap.R")
 
 # Create Shiny app ----
 shinyApp(ui = ui, server = server)</code></pre>
